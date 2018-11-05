@@ -7,24 +7,37 @@ import os
 class URLs:
 
     def __init__(self):
-        self.dataFile = os.path.dirname(os.path.abspath(__file__)) + '/urlDictionary.data'
-        if not os.path.isfile(self.dataFile):
-            print('%s does not exist.' % self.dataFile)
-            self.createMap(self.dataFile)
+        self.data_file = os.path.dirname(os.path.abspath(__file__)) + '/urlDictionary.data'
+        self.crawl_result = os.path.dirname(os.path.abspath(__file__)) + '/clx/clx/crawl_result.csv'
+        if not os.path.isfile(self.data_file):
+            print('%s does not exist.' % self.data_file)
+            self.createMap(self.data_file)
         else:
             urls = []
-            with open(self.dataFile, 'r') as f:
+            with open(self.data_file, 'r') as f:
                 for line in f.readlines():
                     tmp = line.split(' ')
                     urls.append(tmp[len(tmp) - 1])
             self.list = urls
 
     def initUrls(self):
+        import csv
         urls = []
-        with open('products.txt', 'r') as f:
-            for line in f.readlines():
-                tmp = line.split(' ')
-                urls.append(tmp[len(tmp) - 1])
+        
+        with open(self.crawl_result) as f:
+            csv_reader = csv.reader(f, delimiter=',')
+            line_count = 0
+            for row in csv_reader:
+                if line_count == 0:
+                    print ('Column names are %s' % (", ".join(row)) )
+                    line_count += 1
+                else:
+                    print( row[0])
+                    urls.append(row[0])
+                    # print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
+                    line_count += 1
+            print('Processed %d lines.'% line_count)
+              
         self.list = urls
 
     def createMap(self, fname):
@@ -32,11 +45,11 @@ class URLs:
 
         with open(fname, 'w+') as f:
             for i in range(len(self.list)):
-                row = '%s %s' % (i, self.list[i])
+                row = '%s %s\n' % (i, self.list[i])
                 f.write(row)
 
     def getList(self):
-        return map(lambda x: x[:-1], self.list)
+        return map(lambda x: x, self.list)
         # return self.list
 
     def iterator(self):
@@ -62,10 +75,9 @@ class URLs:
 def main():
     store = URLs()
 
-    # print(store.getNextOne())
     # myit = store.iterator()
-    # for i in range(1000):
-    #     print(store.getNextOne())
+    # for i in range(10):
+    #     print(store.getNext())
 
 
     # us = ['https://microsoft.com', 'http://courses.cse.tamu.edu/caverlee/csce670/']

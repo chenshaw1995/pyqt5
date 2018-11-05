@@ -17,6 +17,20 @@ class LayOut(QWidget):
         self.w = 400
         self.h = 400
         self.setUrls()
+        # TODO need a input window for url and an integer K, 
+        #  then call call function in crawlerCall.py, 
+        
+        # create a label so user could choose two url by inputing two integer btwn 1 to k, 
+        # then show these two pages on screen,  
+
+        # show records btwn two urls by inputing two integer btwn 1 and k,
+        #  result would be 1 is bigger than 2, or smaller, or no records,
+
+        #  eliminate inconsistent comparisons, 
+
+        # show topologically sort pages, 
+
+        # show last topological sort result,
         
         self.title = 'mainWindow'
         self.initUI()
