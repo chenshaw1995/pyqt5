@@ -1,29 +1,30 @@
 import sys
 import os
 # from clx.clx.spiders import links_spider
-def call():
-    # os.remove()
+def call(outfile = 'crawl_result.csv', url = 'https://quotes.toscrape.com/page/1/', k = 100):
+    
+    if url is None or len(url) == 0:
+        print(f'invalid url: {url}')
+        url = 'https://quotes.toscrape.com/page/1/'
+        # sys.exit(0)
+
     dirname = os.path.dirname(os.path.abspath(__file__) )
 
-    rmcmd = 'rm ' + dirname + '/clx/clx/crawl_result.csv'
-    print rmcmd
-    os.system(rmcmd)
+    rm_file = f'{dirname}/clx/clx/crawl_result.csv'
+    if os.path.isfile(rm_file):
+        os.remove(rm_file)
     
     os.chdir(dirname + '/clx/clx/')
     
     # print os.getcwd()
-    outfile = 'crawl_result.csv'
-    url = 'https://www.microsoft.com'
-    k = 10
+    
     # 'https://quotes.toscrape.com/page/1/'
-    # cmd = 'scrapy crawl --nolog links -o crawl_res.csv' ok
+    # cmd = 'scrapy crawl links -o crawl_result.csv'
     # cmd = 'scrapy crawl links -o %s -a url=%s' % (outfile, url)# ok
     # cmd = 'scrapy crawl links -o %s -a k=%s' % (outfile, k)# ok
-    cmd = 'scrapy crawl links -o %s -a url=%s -a k=%s' % (outfile, url, k)
-    print cmd
+    cmd = f'scrapy crawl links -o {outfile} -a url={url} -a k={k}'
+    print(cmd)
     os.system(cmd)
-
-
 
 if __name__ == '__main__':
     call()

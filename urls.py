@@ -6,21 +6,28 @@ import os
 
 class URLs:
 
-    def __init__(self):
-        self.data_file = os.path.dirname(os.path.abspath(__file__)) + '/urlDictionary.data'
-        self.crawl_result = os.path.dirname(os.path.abspath(__file__)) + '/clx/clx/crawl_result.csv'
-        if not os.path.isfile(self.data_file):
-            print('%s does not exist.' % self.data_file)
-            self.createMap(self.data_file)
-        else:
-            urls = []
-            with open(self.data_file, 'r') as f:
-                for line in f.readlines():
-                    tmp = line.split(' ')
-                    urls.append(tmp[len(tmp) - 1])
-            self.list = urls
+    def __init__(self, test_mode = False):
+        self.data_file = os.path.dirname(os.path.abspath(__file__)) + '\\urlDictionary.data'
+        self.crawl_result = os.path.dirname(os.path.abspath(__file__)) + '\\clx\\clx\\crawl_result.csv'
+        # os.remove(self.data_file)
+        
+        # if test_mode:
+        #     self.data_file = os.path.dirname(os.path.abspath(__file__)) + '/urlDictionary.test.data'
 
-    def initUrls(self):
+        if not os.path.isfile(self.data_file) or os.path.getsize(self.data_file) == 0:
+            print('%s does not exist.' % self.data_file)
+            sys.exit(0)
+        
+        self.update_urls_datafile(self.data_file)
+        # else:
+        #     urls = []
+        #     with open(self.data_file, 'r') as f:
+        #         for line in f.readlines():
+        #             tmp = line.split(' ')
+        #             urls.append(tmp[len(tmp) - 1][:-1])
+        #     self.list = urls
+
+    def crawl_result_2_urllists(self):
         import csv
         urls = []
         
@@ -32,16 +39,18 @@ class URLs:
                     print ('Column names are %s' % (", ".join(row)) )
                     line_count += 1
                 else:
+                    if row is None or len(row) == 0:
+                        continue
                     print( row[0])
                     urls.append(row[0])
                     # print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
                     line_count += 1
             print('Processed %d lines.'% line_count)
-              
         self.list = urls
+        # self.app.k = len(self.list)
 
-    def createMap(self, fname):
-        self.initUrls()
+    def update_urls_datafile(self, fname):
+        self.crawl_result_2_urllists()
 
         with open(fname, 'w+') as f:
             for i in range(len(self.list)):

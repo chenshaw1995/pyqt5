@@ -1,7 +1,6 @@
 import scrapy
 import pprint 
 import sys
-from sets import Set
 from clx.items import LinksItem
 # global variable
 visited_urls = dict()
@@ -24,8 +23,8 @@ class LinksSpider(scrapy.Spider):
         cap = self.k
         visited_urls[self.url] = True
         captured_urls[self.url] = True
-        print 'k = %d' % self.k
-        print 'processing %s' % (self.url) 
+        print(f'k = {self.k}')
+        print(f'processing {self.url}')
         yield scrapy.Request(url=self.url, callback=self.parseGetAllLinks)
     
     '''
@@ -64,19 +63,19 @@ class LinksSpider(scrapy.Spider):
                 captured_urls[next_urls[idx]] = True
                 bkp_next_url = next_urls[idx]
             if cnt == cap:
-                print "reach the end"
+                print("reach the end")
                 break
                 sys.exit(0)
             cnt += 1
             item = LinksItem()
-            item['name'] = idx
+            item['name'] = cnt
             item['link'] = next_urls[idx]
             yield item
         if cnt < cap:
-            print 'go to next url: %s' % (bkp_next_url)
+            print(f'go to next url: {bkp_next_url}')
             yield scrapy.Request(url = bkp_next_url, callback=self.parseGetAllLinks)
         else:
-            print 'get all %s pages' % cnt
+            print(f'get all {cnt} pages')
 
 
     '''different parsers'''

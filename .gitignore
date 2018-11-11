@@ -4,3 +4,4 @@ recordOp/
 *.txt
 *.old
 *.csv
+*.pyc
