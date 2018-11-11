@@ -3,8 +3,9 @@ from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from body import *
 from urls import URLs
-from inputs import form
+from form import form
 from record import output
+from graph import graph
 from two_url_form import two_url_form
 new_url = 'new_url'
 pick_two_urls = "choose two urls"
@@ -16,23 +17,18 @@ class Menu(QtWidgets.QMainWindow):
 
         self.init_top_menu()
         
+        self.app.body = Body(app)
+
         self.input_new_url_form()
-        # TODO need to connect to new url btn, 
 
         self.input_two_urls_form()
         # TODO need slightly modify on compare func, to return the compare result and not use set
         # the result : show records btwn two urls by inputing two integer btwn 1 and k,
         #  result would be 1 is bigger than 2, or smaller, or no records,
 
-        
-        # self.compare_two_urls_form()
-
-        self.app.body = Body(app)
+        self.init_graph()
 
         self.setCentralWidget(app.body)
-
-    # def compare_two_urls_form(self):
-    #     self.compare_two_urls_form = compare_two_urls_form
 
     def init_top_menu(self):
         viewBtn = QtWidgets.QPushButton("urls")
@@ -61,6 +57,8 @@ class Menu(QtWidgets.QMainWindow):
     def input_new_url_form(self):
         self.app.new_url_form = form(self.app)
 
+    def init_graph(self):
+        self.app.graph = graph(self.app)
 
     def introduce_me(self):
         print("event introduce")
@@ -77,13 +75,21 @@ class Menu(QtWidgets.QMainWindow):
         print(act)
         if act == new_url:
             self.app.new_url_form.show()
-            
             pass
         elif act == pick_two_urls:
             self.app.two_url_form.show()
             pass
         
-
+    def closeEvent(self, event):
+        close = QMessageBox()
+        self.app.body.urls.save_set()
+        close.setText("You sure?")
+        close.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
+        close = close.exec()
+        if close == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

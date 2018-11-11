@@ -13,7 +13,9 @@ def call(outfile = 'crawl_result.csv', url = 'https://quotes.toscrape.com/page/1
     rm_file = f'{dirname}/clx/clx/crawl_result.csv'
     if os.path.isfile(rm_file):
         os.remove(rm_file)
-    
+    rm_file = f'{dirname}/NumericRecords.txt'
+    if os.path.isfile(rm_file):
+        os.remove(rm_file)
     os.chdir(dirname + '/clx/clx/')
     
     # print os.getcwd()

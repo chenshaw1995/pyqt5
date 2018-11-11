@@ -3,7 +3,7 @@ import pprint
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from crawlerCall import *
+# from crawlerCall import *
 
 # directly pick two from 1 to k, 
 
@@ -11,7 +11,7 @@ from crawlerCall import *
 class two_url_form(QWidget):
     def __init__(self, app):
         self.app = app
-
+        
         super(two_url_form, self).__init__()
         self.title = 'compare form'
         self.left   = 300
@@ -26,8 +26,8 @@ class two_url_form(QWidget):
         self.set_int_col('id1', QLineEdit())
         self.set_int_col('id2', QLineEdit())
 
-        self.process = QProcess(self)
-        
+        app.sets = set([str(i) for i in range(app.k)])
+        # self.app.body.urls.set
 
         self.compareBtn = QPushButton('compare')
         self.compareBtn.clicked.connect(self.compare)
@@ -66,14 +66,14 @@ class two_url_form(QWidget):
         item, okPressed = QInputDialog.getItem(self, "Get url","url_id:", self.app.sets, 0, False)
         if okPressed and item:
             print(item)
-            self.app.sets.remove(item)
+            # self.app.sets.remove(item)
             self.inputs['id1'].setText(str(item))
     
     def getint2(self):
         item, okPressed = QInputDialog.getItem(self, "Get url","url_id:", self.app.sets, 0, False)
         if okPressed and item:
             print(item)
-            self.app.sets.remove(item)
+            # self.app.sets.remove(item)
             self.inputs['id2'].setText(str(item))
         # num,ok = QInputDialog.getInt(self,"integer input dualog","enter a number",self.app.k - 1, 0, self.app.k - 1, 1)
         # if ok:
@@ -87,6 +87,22 @@ class two_url_form(QWidget):
             self.vals[col] = self.inputs[col].text()
             print(f'{col}: "{self.vals[col]}"' )
             # self.inputs[col].setText("")
+        body = self.app.body
+        id1 = self.vals['id1']
+        id2 = self.vals['id2']
+        if self.app.graph.exist_edge(id1, id2) == True:
+            result = self.app.graph.compare(id1, id2)
+            message = ""
+            if result < 0:
+                message = f'{id1} smaller than {id2}'
+            elif result > 0:
+                message = f'{id2} smaller than {id1}'
+            else:
+                message = f'{id1} equals to {id2}'
+            QMessageBox.about(self, "compare result", message)
+        else:
+            body.update1(self.vals['id1'])
+            body.update2(self.vals['id2'])
         
         # if two urls has been compared, return the result, 
         # if not pop a message so do we need to put these two into body window

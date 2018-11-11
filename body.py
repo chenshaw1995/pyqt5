@@ -2,9 +2,9 @@ import sys
 import requests
 # from menu import Menu
 from urls import URLs
-from inputs import form
+# from inputs import form
 from record import output
-from two_url_form import two_url_form
+# from two_url_form import two_url_form
 from webView import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -40,32 +40,28 @@ class Body(QWidget):
         self.w = 400
         self.h = 400
 
-    def appear(self):
-        for k in self.app.init_form.vals.keys():
-            print( f'{k} : "{self.app.init_form.vals[k]}"' )
-
-        # self.init_urls()
-        
-        # self.app.body.initUI()
-
-        # self.app.body.show()
-
     def init_urls(self, update_url = False):
         self.urls = URLs(update_url)
         self.app.k = len(self.urls.list)
-        self.urls.iterator()
+        # self.urls.iterator()
         self.update1()
         self.update2()
         
-    def update1(self):
+    def update1(self, ids = ""):
+        if ids == "":
+            self.url1 = self.urls.getNext()
+        else:
+            self.url1 = self.urls.get_next_by_id(ids)
         self.id1 = self.urls.id
-        self.url1 = self.urls.getNext()
         print(f'url1: "{self.url1}"')
         self.left_page.refresh(self.url1)
 
-    def update2(self):
+    def update2(self, ids = ""):
+        if ids == "":
+            self.url2 = self.urls.getNext()
+        else:
+            self.url2 = self.urls.get_next_by_id(ids)
         self.id2 = self.urls.id
-        self.url2 = self.urls.getNext()
         print(f'url2: "{self.url2}"')
         self.right_page.refresh(self.url2)
 
@@ -105,8 +101,8 @@ class Body(QWidget):
 
     def choose(self, idx):
         r = '%s %s %s' % (self.url1, self.url2, idx)
-        numericRecord = '%s %s %s' % (self.id1, self.id2, idx - 1)
-        output(numericRecord)
+        
+        output(self.app, self.id1, self.id2, idx - 1)
         self.getNewUrl(idx)
         print(r)
 
