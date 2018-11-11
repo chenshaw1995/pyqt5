@@ -6,7 +6,7 @@ import os
 
 class URLs:
 
-    def __init__(self, test_mode = False):
+    def __init__(self, update_url = False):
         self.data_file = os.path.dirname(os.path.abspath(__file__)) + '\\urlDictionary.data'
         self.crawl_result = os.path.dirname(os.path.abspath(__file__)) + '\\clx\\clx\\crawl_result.csv'
         # os.remove(self.data_file)
@@ -18,14 +18,16 @@ class URLs:
             print('%s does not exist.' % self.data_file)
             sys.exit(0)
         
-        self.update_urls_datafile(self.data_file)
-        # else:
-        #     urls = []
-        #     with open(self.data_file, 'r') as f:
-        #         for line in f.readlines():
-        #             tmp = line.split(' ')
-        #             urls.append(tmp[len(tmp) - 1][:-1])
-        #     self.list = urls
+        if update_url:
+            print('loading new urls...')
+            self.update_urls_datafile(self.data_file)
+        else:
+            urls = []
+            with open(self.data_file, 'r') as f:
+                for line in f.readlines():
+                    tmp = line.split(' ')
+                    urls.append(tmp[len(tmp) - 1][:-1])
+            self.list = urls
 
     def crawl_result_2_urllists(self):
         import csv

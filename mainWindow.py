@@ -2,6 +2,10 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from body import *
+from urls import URLs
+from inputs import form
+from record import output
+from two_url_form import two_url_form
 new_url = 'new_url'
 pick_two_urls = "choose two urls"
 
@@ -72,8 +76,11 @@ class Menu(QtWidgets.QMainWindow):
         act = action.text()
         print(act)
         if act == new_url:
+            self.app.new_url_form.show()
+            
             pass
         elif act == pick_two_urls:
+            self.app.two_url_form.show()
             pass
         
 
