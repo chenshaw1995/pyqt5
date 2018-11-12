@@ -86,6 +86,11 @@ class two_url_form(QWidget):
         body = self.app.body
         id1 = self.vals['id1']
         id2 = self.vals['id2']
+        if id1 == '' or id2 == '':
+            
+            body.update1(id1)
+            body.update2(id2)
+            
         if self.app.graph.exist_edge(id1, id2):
             # try:
             result = self.app.graph.compare(id1, id2)
