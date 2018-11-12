@@ -11,6 +11,8 @@ new_url = 'new_url'
 pick_two_urls = "choose two urls"
 get_two_compared_urls = "get two used urls"
 get_graph = 'get_score'
+get_topological_result = 'topological result'
+
 class Menu(QtWidgets.QMainWindow):
     def __init__(self, app):
         super().__init__()
@@ -44,6 +46,7 @@ class Menu(QtWidgets.QMainWindow):
         menu.addAction(pick_two_urls)
         menu.addAction(get_two_compared_urls)
         menu.addAction(get_graph)
+        menu.addAction(get_topological_result)
 
         viewBtn.setMenu(menu)
 
@@ -86,8 +89,15 @@ class Menu(QtWidgets.QMainWindow):
             import pprint      
             pp = pprint.PrettyPrinter(indent=4)
             score = self.app.graph.getScores()
-            pp.pprint(score)
-        
+            # pp.pprint(score)
+            QMessageBox.about(self, "graph parents", str(self.app.graph.parents))
+        elif act == get_topological_result:
+            import pprint      
+            pp = pprint.PrettyPrinter(indent=4)
+            res = self.app.graph.get_topological_sort()
+            pp.pprint(res)
+            QMessageBox.about(self, "topological result", str(res))
+            
     def closeEvent(self, event):
         close = QMessageBox()
         self.app.body.urls.save_set()

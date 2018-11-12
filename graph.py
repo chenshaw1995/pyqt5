@@ -55,20 +55,33 @@ class graph:
         while ids != self.parents[ids]:
             ids = self.parents[ids]
         return ids
-# TODO
+        
     def get_topological_sort(self):
-        nexts = {} # from the least one to the bigger related ones,
-        outs = np.zeros(self.nodes)
-        for p in self.childOf:
-            outs[p]+= 1
-            if self.childOf[p] not in nexts:
-                nexts[self.childOf[p]] = []
-            nexts[self.childOf[p]].append(p)
-        source = -1
-        for p in range(len(outs)):
-            if outs[p] == 0:
-                source = p
+        ins = [0 for x in range(len(self.parents))]
+        visited = [False for x in range(len(self.parents))]
+        res = []
+        for ids in self.parents:
+            if ids == self.parents[ids]:
+                # source
+                continue
 
+            ins[self.parents[ids]] += 1
+            
+        for ids in range(len(ins)):
+            if ins[ids] == 0:
+                self.dfs(self.parents, ids, visited, res)
+        
+        return res
+
+    def dfs(self, parents, ids, visited, res):
+        if visited[ids]:
+            return 
+        visited[ids] = True
+        if ids == parents[ids]:
+            res.append(ids)
+            return
+        self.dfs(parents, parents[ids], visited, res)
+        res.append(ids)
 
 
     def getScores(self):

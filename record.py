@@ -10,6 +10,8 @@ def output(app, id1, id2, idx):
     #     f.write(txt)
     print(txt)
 
+# def pop_message_box(title,message):
+#     QMessageBox.about(self, "compare result", message)
 # def outputCSV(txt, fname):
 #     with open(fname, 'a+') as f:
 #         txt = txt + '\n'
