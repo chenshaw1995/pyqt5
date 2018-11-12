@@ -108,9 +108,13 @@ class URLs:
         rm_id = self.get_random_url_id()
         return self.get_next_by_id(rm_id)
 
+    def remove_from_id(self, rm_id):
+        self.set.remove(rm_id)
+        print(self.set)
+
     def get_next_by_id(self, rm_id):
         print(self.set)
-        self.set.remove(rm_id)
+        # self.set.remove(rm_id)
         rm_id = int(rm_id)
         self.id = rm_id
         return self.list[rm_id]

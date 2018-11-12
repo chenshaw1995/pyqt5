@@ -18,8 +18,6 @@ class Body(QWidget):
         self.app.body = self
         self.init_size()
         
-        # TODO use menu to link the url input form, and url ids input form, 
-
         #  eliminate inconsistent comparisons, 
 
         # show topologically sort pages, 
@@ -43,7 +41,7 @@ class Body(QWidget):
     def init_urls(self, update_url = False):
         self.urls = URLs(update_url)
         self.app.k = len(self.urls.list)
-        # self.urls.iterator()
+        
         self.update1()
         self.update2()
         
@@ -68,19 +66,10 @@ class Body(QWidget):
     def getNewUrl(self, id):
         if id == 1:
             self.update1()
-            # self.resize(self.w, self.h)
-            # self.left_page.refresh(self.url1)
         else:
             self.update2()
-            # self.resize(self.w, self.h)
-            # self.right_page.refresh(self.url2)
 
     def setLeft(self):
-        # view = QFrame()
-        # view.setFrameShape(QFrame.StyledPanel)
-        # view = QLabel('label in a frame')
-        # self.left = view
-
         left_part = QSplitter(Qt.Vertical)
         self.left_page = subWebPage(url=self.url1) 
         left_part.addWidget(self.left_page)
@@ -88,11 +77,6 @@ class Body(QWidget):
         self.left = left_part
 
     def setRight(self):
-        # view = QFrame()
-        # view.setFrameShape(QFrame.StyledPanel)
-        # view = QLabel('label in a frame')
-        # self.right = view
-
         right_part = QSplitter(Qt.Vertical)
         self.right_page = subWebPage(url=self.url2)
         right_part.addWidget(self.right_page)
@@ -101,10 +85,23 @@ class Body(QWidget):
 
     def choose(self, idx):
         r = '%s %s %s' % (self.url1, self.url2, idx)
-        
-        output(self.app, self.id1, self.id2, idx - 1)
-        self.getNewUrl(idx)
-        print(r)
+        # case, two url are the same
+        if self.url1 == self.url2:
+            if len(self.urls) <= 1:
+                # pop_message("")
+                QMessageBox.about(self, "error reminder", "only one url left here, please update urls or close current program.")
+
+            self.getNewUrl(idx)
+            pass
+        else:
+            if idx - 1 == 0:
+                self.urls.remove_from_id(str(self.id1))
+            else:
+                self.urls.remove_from_id(str(self.id2))
+
+            output(self.app, self.id1, self.id2, idx - 1)
+            self.getNewUrl(idx)
+            print(r)
 
     def createLabel(self, txt, idx, f):
         l = QLabel()
@@ -113,32 +110,25 @@ class Body(QWidget):
         l.mouseReleaseEvent=lambda event:f(idx)
         return l
 
-    def setBottom(self):
-         # if False:
+    def create_empty_view(self):
         view = QFrame()
         view.setFrameShape(QFrame.StyledPanel)
         view = QLabel('label in a frame')
-        # label.show()
+        return view
 
-        #     self.left = view
-        # else:
+    def setBottom(self):
         # splt = QSplitter(Qt.Horizontal)
         # l1 = self.createLabel("choose 1", 1, self.choose)
         # l2 = self.createLabel("choose 2", 2, self.choose)
         # splt.addWidget(l1)
         # splt.addWidget(l2)
-        self.bottom = view#splt 
-        # view
+        self.bottom = self.create_empty_view()
 
     def setTop(self):
         view = QFrame()
         view.setFrameShape(QFrame.StyledPanel)
         view = QLabel('top line')
         self.top = view
-
-        # pass
-        # self.menu = Menu()
-        # self.top = self.menu
         
     def initUI(self):
         hbox = QHBoxLayout(self)
@@ -157,12 +147,7 @@ class Body(QWidget):
         self.splitter2 = QSplitter(Qt.Vertical)
         self.splitter2.addWidget(self.top)
 
-        # self.body = form
-
-        # update form with splitter1, after inputing info in form, call crawl function, get crawler result, and pass it to urls, 
-
         self.splitter2.addWidget(self.splitter1)
-        # self.splitter2.addWidget(self.body)
         self.splitter2.addWidget(self.bottom)
 
         hbox.addWidget(self.splitter2)
@@ -176,15 +161,8 @@ class Body(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    # ex = form(app)
     ex = Body(app)
-    # ex.show()
-
-    
-
     app.exec_()
-
-    # sys.exit()
 
 if __name__ == '__main__':
     main()

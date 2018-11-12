@@ -33,11 +33,6 @@ class form(QWidget):
         reg_k = QRegExp("[0-9]+")
         input_k_validator = QRegExpValidator(reg_k, self.inputs['URL'])
         self.inputs['K'].setValidator(input_k_validator)
-        # vbox = QVBoxLayout()
-        # vbox.addWidget(QLineEdit(self))
-        # vbox.addWidget(QLineEdit(self))
-        # self.setCol('Address', vbox)
-
         # hbox = QHBoxLayout()
         # hbox.addWidget(QRadioButton("Male"))
         # hbox.addWidget(QRadioButton("Female"))
@@ -68,7 +63,9 @@ class form(QWidget):
 
     @pyqtSlot()
     def submit(self):
-        self.vals = {}
+        self.app.body.urls.save_set()
+
+        self.vals = {}        
         for col in self.inputs.keys():
             self.vals[col] = self.inputs[col].text()
             print(f'{col}: "{self.vals[col]}"' )

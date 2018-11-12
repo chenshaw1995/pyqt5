@@ -22,9 +22,6 @@ class Menu(QtWidgets.QMainWindow):
         self.input_new_url_form()
 
         self.input_two_urls_form()
-        # TODO need slightly modify on compare func, to return the compare result and not use set
-        # the result : show records btwn two urls by inputing two integer btwn 1 and k,
-        #  result would be 1 is bigger than 2, or smaller, or no records,
 
         self.init_graph()
 

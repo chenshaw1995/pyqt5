@@ -28,7 +28,7 @@ class two_url_form(QWidget):
 
         app.sets = set([str(i) for i in range(app.k)])
         # self.app.body.urls.set
-
+        
         self.compareBtn = QPushButton('compare')
         self.compareBtn.clicked.connect(self.compare)
 
@@ -90,8 +90,13 @@ class two_url_form(QWidget):
         body = self.app.body
         id1 = self.vals['id1']
         id2 = self.vals['id2']
-        if self.app.graph.exist_edge(id1, id2) == True:
+        if self.app.graph.exist_edge(id1, id2):
+            # try:
             result = self.app.graph.compare(id1, id2)
+            # except Exception as error:
+                # print('this edge does not exist')
+
+
             message = ""
             if result < 0:
                 message = f'{id1} smaller than {id2}'
@@ -101,6 +106,8 @@ class two_url_form(QWidget):
                 message = f'{id1} equals to {id2}'
             QMessageBox.about(self, "compare result", message)
         else:
+            # a node exist but the other not, 
+            # self.app.graph.exist_edge(id1, id2):
             body.update1(self.vals['id1'])
             body.update2(self.vals['id2'])
         
