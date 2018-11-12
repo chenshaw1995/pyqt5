@@ -39,7 +39,10 @@ class Body(QWidget):
         self.h = 400
 
     def init_urls(self, update_url = False):
-        self.urls = URLs(update_url)
+        if update_url:
+            self.urls = URLs(update_url = True)
+        else:
+            self.urls = URLs()
         self.app.k = len(self.urls.list)
         
         self.update1()
@@ -87,19 +90,22 @@ class Body(QWidget):
         r = '%s %s %s' % (self.url1, self.url2, idx)
         # case, two url are the same
         if self.url1 == self.url2:
-            if len(self.urls) <= 1:
+            if len(self.urls.list) <= 1:
                 # pop_message("")
                 QMessageBox.about(self, "error reminder", "only one url left here, please update urls or close current program.")
 
             self.getNewUrl(idx)
             pass
         else:
+            
+            output(self.app, self.id1, self.id2, idx - 1)
             if idx - 1 == 0:
+                print(f'choose{self.id1}')
                 self.urls.remove_from_id(str(self.id1))
             else:
+                print(f'choose{self.id2}')
                 self.urls.remove_from_id(str(self.id2))
 
-            output(self.app, self.id1, self.id2, idx - 1)
             self.getNewUrl(idx)
             print(r)
 

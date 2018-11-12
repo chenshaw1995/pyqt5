@@ -3,6 +3,7 @@ from __future__ import print_function
 import sys
 import random
 import os
+from graph import *
 from record import *
 
 class URLs:
@@ -25,6 +26,7 @@ class URLs:
         if update_url:
             print('loading new urls...')
             self.update_urls_datafile(self.data_file)
+            
             self.save_set()
         else:
             if os.path.isfile(self.set_file):
@@ -84,20 +86,26 @@ class URLs:
 
     def update_urls_datafile(self, fname):
         self.crawl_result_2_urllists()
-
         with open(fname, 'w+') as f:
             for i in range(len(self.list)):
                 row = '%s %s\n' % (i, self.list[i])
                 f.write(row)
-
         self.create_set() 
         # self.set = set([x for x in range(len(self.list))])
+
+    def get_all_used_urls(self):
+        used_urls = []
+        for url in self.list:
+            if url not in self.set:
+                used_urls.append(url)
+        return used_urls
 
     def getList(self):
         return map(lambda x: x, self.list)
         # return self.list
 
     def iterator(self):
+        # @deprecate
         self.id = 0
     #     self.it = iter(self.set)
     #     return self.it
@@ -109,19 +117,18 @@ class URLs:
         return self.get_next_by_id(rm_id)
 
     def remove_from_id(self, rm_id):
-        self.set.remove(rm_id)
+        # @disabled
+        # self.set.remove(rm_id)
         print(self.set)
 
     def get_next_by_id(self, rm_id):
         print(self.set)
-        # self.set.remove(rm_id)
         rm_id = int(rm_id)
         self.id = rm_id
         return self.list[rm_id]
 
     def get_random_url_id(self):
         self.random_list = list(self.set)
-        
         idx = random.randint(0, len(self.random_list) - 1)
         rm_id = self.random_list[idx]
         return rm_id # str id

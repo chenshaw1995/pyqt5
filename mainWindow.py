@@ -9,7 +9,8 @@ from graph import graph
 from two_url_form import two_url_form
 new_url = 'new_url'
 pick_two_urls = "choose two urls"
-
+get_two_compared_urls = "get two used urls"
+get_graph = 'get_score'
 class Menu(QtWidgets.QMainWindow):
     def __init__(self, app):
         super().__init__()
@@ -41,7 +42,9 @@ class Menu(QtWidgets.QMainWindow):
         menu = QtWidgets.QMenu()
         menu.addAction(new_url)
         menu.addAction(pick_two_urls)
-        menu.addAction("compare two urls")
+        menu.addAction(get_two_compared_urls)
+        menu.addAction(get_graph)
+
         viewBtn.setMenu(menu)
 
         exitAct.triggered.connect(self.close)
@@ -76,10 +79,20 @@ class Menu(QtWidgets.QMainWindow):
         elif act == pick_two_urls:
             self.app.two_url_form.show()
             pass
+        elif act == get_two_compared_urls:
+            # two_used_url_form
+            print(self.app.body.urls.get_all_used_urls())
+        elif act == get_graph:
+            import pprint      
+            pp = pprint.PrettyPrinter(indent=4)
+            score = self.app.graph.getScores()
+            pp.pprint(score)
         
     def closeEvent(self, event):
         close = QMessageBox()
         self.app.body.urls.save_set()
+        self.app.graph.save()
+        
         close.setText("You sure?")
         close.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
         close = close.exec()

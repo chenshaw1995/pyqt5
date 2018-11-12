@@ -1,18 +1,30 @@
-
+import os
 import numpy as np
-# true = True
-# flase = False
+from record import *
 
 class graph:
-    def __init__(self, app):
+    def __init__(self, app, new = False):
         self.app = app
         self.childOf = {}
         self.nodes = app.k
+        
+        self.parents_file = f'{os.path.dirname(os.path.abspath(__file__))}/parents.pickle'
+        print(f'{self.parents_file} does exist.')
         # UNION FIND
-        self.parents = [(x) for x in range((app.k))]
+        if new:
+            self.parents = [(x) for x in range((app.k))]
+            self.save()
+        else:
+            if os.path.isfile(self.parents_file):
+                self.parents = load_pickle(self.parents_file)
+            else:
+                self.parents = [(x) for x in range((app.k))]
 
         self.score = np.zeros(self.nodes)
         self.score = self.score - np.ones(self.nodes)
+    
+    def save(self):
+        save_pickle(self.parents_file, self.parents)
 
     def add_edge(self, a, b, idx):
         if idx == 0:
@@ -44,7 +56,23 @@ class graph:
             ids = self.parents[ids]
         return ids
 # TODO
+    def get_topological_sort(self):
+        nexts = {} # from the least one to the bigger related ones,
+        outs = np.zeros(self.nodes)
+        for p in self.childOf:
+            outs[p]+= 1
+            if self.childOf[p] not in nexts:
+                nexts[self.childOf[p]] = []
+            nexts[self.childOf[p]].append(p)
+        source = -1
+        for p in range(len(outs)):
+            if outs[p] == 0:
+                source = p
+
+
+
     def getScores(self):
+        
         '''
         4
         3, 2
@@ -56,6 +84,9 @@ class graph:
         0-3,2
         3-4
         '''
+        print(self.parents)
+
+
         self.score = np.zeros(self.nodes)
         self.score = self.score - np.ones(self.nodes)
         # record indegree of allself.nodes, if in degreee == 0, is a leaf
@@ -89,8 +120,8 @@ class graph:
         # sc is the max score
         # for i in range(len(score)):
         #     score[i] = float(score[i] / sc)
-        
-        # return scorescore
+        return self.score
+
     def find_with_path(self, ids):
         ids = int(ids)
         path = 0

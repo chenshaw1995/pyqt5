@@ -2,13 +2,13 @@ import pickle
 import os
 
 def output(app, id1, id2, idx):
-    # app.graph
-    # TODO update graph
+    
     app.graph.add_edge(id1, id2, idx)
     txt = '%s %s %s' % (id1, id2, idx)
-    with open('NumericRecords.txt', 'a+') as f:
-        txt = txt + '\n'
-        f.write(txt)
+    # with open('NumericRecords.txt', 'a+') as f:
+    #     txt = txt + '\n'
+    #     f.write(txt)
+    print(txt)
 
 # def outputCSV(txt, fname):
 #     with open(fname, 'a+') as f:
@@ -22,10 +22,10 @@ def save_pickle(fname, data):
     return True
 
 def load_pickle(fname):
-    if not os.path.isfile(fname) or os.path.getsize(fname) == 0:
-        return ""
+    # if not os.path.isfile(fname):
+    #     raise ValueError
 
-    with open(fname, 'rb') as handle:
+    with open(fname, 'r+b') as handle:
         b = pickle.load(handle)
     return b
 

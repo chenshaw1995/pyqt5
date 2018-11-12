@@ -1,6 +1,7 @@
 import sys
 import os
-# from clx.clx.spiders import links_spider
+from pathlib import Path
+
 def call(outfile = 'crawl_result.csv', url = 'https://quotes.toscrape.com/page/1/', k = 100):
     
     if url is None or len(url) == 0:
@@ -16,6 +17,11 @@ def call(outfile = 'crawl_result.csv', url = 'https://quotes.toscrape.com/page/1
     rm_file = f'{dirname}/NumericRecords.txt'
     if os.path.isfile(rm_file):
         os.remove(rm_file)
+    Path(rm_file).touch()
+    if os.path.isfile(rm_file):
+        print(f'{rm_file} is a empty file now')
+    else:
+        print(f'fail to create {rm_file}')
     os.chdir(dirname + '/clx/clx/')
     
     # print os.getcwd()

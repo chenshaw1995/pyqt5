@@ -1,5 +1,6 @@
 import sys
 import pprint
+from graph import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -75,6 +76,7 @@ class form(QWidget):
         # check if file empty
         self.validate_file()
         self.app.body.init_urls(True)
+        self.app.graph = graph(self.app, new = True)
         self.exit()
         # self.app.body.appear()
     

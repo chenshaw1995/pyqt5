@@ -3,11 +3,7 @@ import pprint
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-# from crawlerCall import *
 
-# directly pick two from 1 to k, 
-
-#  only the form not input
 class two_url_form(QWidget):
     def __init__(self, app):
         self.app = app
@@ -26,8 +22,8 @@ class two_url_form(QWidget):
         self.set_int_col('id1', QLineEdit())
         self.set_int_col('id2', QLineEdit())
 
-        app.sets = set([str(i) for i in range(app.k)])
-        # self.app.body.urls.set
+        app.sets = self.app.body.urls.set
+        # set([str(i) for i in range(app.k)])
         
         self.compareBtn = QPushButton('compare')
         self.compareBtn.clicked.connect(self.compare)
@@ -108,8 +104,11 @@ class two_url_form(QWidget):
         else:
             # a node exist but the other not, 
             # self.app.graph.exist_edge(id1, id2):
-            body.update1(self.vals['id1'])
-            body.update2(self.vals['id2'])
+            id1 = self.app.graph.find(id1)
+            id2 = self.app.graph.find(id2)
+
+            body.update1(id1)
+            body.update2(id2)
         
         # if two urls has been compared, return the result, 
         # if not pop a message so do we need to put these two into body window
