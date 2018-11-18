@@ -5,3 +5,5 @@ recordOp/
 *.old
 *.csv
 *.pyc
+*.pickle
+*.docx
