@@ -9,7 +9,7 @@ from graph import graph
 from two_url_form import two_url_form
 new_url = 'new_url'
 pick_two_urls = "choose two urls"
-get_two_compared_urls = "get two used urls"
+# get_two_compared_urls = "get two used urls"
 get_graph = 'get_score'
 get_topological_result = 'topological result'
 
@@ -44,7 +44,7 @@ class Menu(QtWidgets.QMainWindow):
         menu = QtWidgets.QMenu()
         menu.addAction(new_url)
         menu.addAction(pick_two_urls)
-        menu.addAction(get_two_compared_urls)
+        # menu.addAction(get_two_compared_urls)
         menu.addAction(get_graph)
         menu.addAction(get_topological_result)
 
@@ -82,9 +82,9 @@ class Menu(QtWidgets.QMainWindow):
         elif act == pick_two_urls:
             self.app.two_url_form.show()
             pass
-        elif act == get_two_compared_urls:
-            # two_used_url_form
-            print(self.app.body.urls.get_all_used_urls())
+        # elif act == get_two_compared_urls:
+        #     # two_used_url_form
+        #     print(self.app.body.urls.get_all_used_urls())
         elif act == get_graph:
             import pprint      
             pp = pprint.PrettyPrinter(indent=4)

@@ -100,9 +100,9 @@ class two_url_form(QWidget):
 
             message = ""
             if result < 0:
-                message = f'{id1} smaller than {id2}'
+                message = f'the url with id: {id1} is more related to the product than the url with id: {id2}'
             elif result > 0:
-                message = f'{id2} smaller than {id1}'
+                message = f'the url with id: {id2} is more related to the product than the url with id: {id1}'
             else:
                 message = f'{id1} equals to {id2}'
             QMessageBox.about(self, "compare result", message)
