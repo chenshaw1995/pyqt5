@@ -8,7 +8,7 @@ class graph:
         self.childOf = {}
         self.nodes = app.k
         
-        self.parents_file = f'{os.path.dirname(os.path.abspath(__file__))}/parents.pickle'
+        self.parents_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'parents.pickle')
         print(f'{self.parents_file} does exist.')
         # UNION FIND
         if new:
@@ -35,7 +35,6 @@ class graph:
             # b > a, b a
             self.childOf[b] = a
             self.union(int(b), int(a))
-        # self.getScores()
 
     def union(self, a, b):
         a = int(a)
@@ -85,7 +84,6 @@ class graph:
 
 
     def getScores(self):
-        
         '''
         4
         3, 2
@@ -98,8 +96,6 @@ class graph:
         3-4
         '''
         print(self.parents)
-
-
         self.score = np.zeros(self.nodes)
         self.score = self.score - np.ones(self.nodes)
         # record indegree of allself.nodes, if in degreee == 0, is a leaf

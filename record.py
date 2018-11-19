@@ -5,17 +5,7 @@ def output(app, id1, id2, idx):
     
     app.graph.add_edge(id1, id2, idx)
     txt = '%s %s %s' % (id1, id2, idx)
-    # with open('NumericRecords.txt', 'a+') as f:
-    #     txt = txt + '\n'
-    #     f.write(txt)
     print(txt)
-
-# def pop_message_box(title,message):
-#     QMessageBox.about(self, "compare result", message)
-# def outputCSV(txt, fname):
-#     with open(fname, 'a+') as f:
-#         txt = txt + '\n'
-#         f.write(txt)
 
 def save_pickle(fname, data):
     with open(fname, 'w+b') as handle:
@@ -24,9 +14,6 @@ def save_pickle(fname, data):
     return True
 
 def load_pickle(fname):
-    # if not os.path.isfile(fname):
-    #     raise ValueError
-
     with open(fname, 'r+b') as handle:
         b = pickle.load(handle)
     return b

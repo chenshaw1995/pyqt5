@@ -17,12 +17,6 @@ class Body(QWidget):
         self.app.title = 'Body-part'
         self.app.body = self
         self.init_size()
-        
-        #  eliminate inconsistent comparisons, 
-
-        # show topologically sort pages, 
-
-        # show last topological sort result,
         self.url1 = "https://www.google.com"
         self.url2 = "https://www.google.com"
 
@@ -123,11 +117,6 @@ class Body(QWidget):
         return view
 
     def setBottom(self):
-        # splt = QSplitter(Qt.Horizontal)
-        # l1 = self.createLabel("choose 1", 1, self.choose)
-        # l2 = self.createLabel("choose 2", 2, self.choose)
-        # splt.addWidget(l1)
-        # splt.addWidget(l2)
         self.bottom = self.create_empty_view()
 
     def setTop(self):

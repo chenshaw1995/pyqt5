@@ -10,11 +10,6 @@ cnt = 0
 class LinksSpider(scrapy.Spider):
     '''spider name'''
     name = "links"
-    # def __init__(self, url='https://www.apple.com', **kwargs):
-    #     # self.start_urls = [f'http://www.example.com/{category}']  # py36
-    #     self.start_urls
-    #     super().__init__(**kwargs)  # python3
-    
     def start_requests(self):
         global visited_urls
         global cap
