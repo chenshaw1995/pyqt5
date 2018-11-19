@@ -1,26 +1,48 @@
-# pyqt5
+# Project Title
 
-# first stage
+GUI for research project
 
-Currently, we have a main window of version 1 with pyqt5, so user could choose which webpage is more related to products.
+## Getting Started
 
-# 11/4/2018
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-complete simple spider so with inputed url and K, you could crawl webpages as you want. Just need to know, do not use too big K, because it is a simple spider with single thread. and memory is limited.
+TODO
 
-# TODO 
-- need a input window for url and an integer K, 
--  then call call function in crawlerCall.py,      
-  - create a label so user could choose two url by inputing two integer btwn 1 to k, then show these two pages on screen,  
-  - show records btwn two urls by inputing two integer btwn 1 and k,
-  > - result would be 1 is bigger than 2, or smaller, or no records,
+### Prerequisites
 
-  -  eliminate inconsistent comparisons, 
+```
+anaconda3
+python3
+pyqt5
+```
 
-  - show topologically sort pages, 
+### Installing
 
-  - show last topological sort result,
+1. clone or download this repository locally
+2. open anaconda prompt
+3. run command:
+```
+python mainWindow.py
+```
 
-- create a data set for NN regression algo,
 
-- modify nn algorithm for regression
+## Running the tests
+
+TODO
+
+
+## Built With
+
+* [anaconda](https://www.anaconda.com/) - Used for virtual environment and package manager
+* [scrapy](https://scrapy.org/) - The crawler framework used, python supported
+* [PyQt5](https://www.qt.io/) - The GUI framework used, python supported
+* [python 3](https://www.python.org/download/releases/3.0/)
+
+## Authors
+
+* **Xichao Chen** - *Initial work* - [XichaoChen](https://github.com/chenshaw1995)
+
+## Acknowledgments
+
+* This is a research project GUI with Scrapy, only single thread supported
+* Inspirated by my advisor [Dr. Anxiao Jiang](http://faculty.cse.tamu.edu/ajiang/)
