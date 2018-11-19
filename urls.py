@@ -16,9 +16,9 @@ class URLs:
          2, have a set file and list file
          '''
 
-        self.data_file = os.path.dirname(os.path.abspath(__file__)) + '\\urlDictionary.data'
-        self.crawl_result = os.path.dirname(os.path.abspath(__file__)) + '\\clx\\clx\\crawl_result.csv'
-        self.set_file = os.path.dirname(os.path.abspath(__file__)) + '\\url_set.pickle'
+        self.data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'urlDictionary.data')
+        self.crawl_result = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clx\\clx\\crawl_result.csv')
+        self.set_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'url_set.pickle')
         self.id = 0
         if not os.path.isfile(self.data_file) or os.path.getsize(self.data_file) == 0:
             update_url = True
@@ -36,7 +36,7 @@ class URLs:
             else:
                 print(f'{self.set_file} does not exist. please update url first.')
                 urls = []
-                with open(self.data_file, 'r') as f:
+                with open(self.data_file, 'r+') as f:
                     for line in f.readlines():
                         tmp = line.split(' ')
                         urls.append(tmp[len(tmp) - 1][:-1])

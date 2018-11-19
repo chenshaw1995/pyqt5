@@ -1,10 +1,9 @@
 import sys
+import os
 import requests
-# from menu import Menu
+from pathlib import Path
 from urls import URLs
-# from inputs import form
 from record import output
-# from two_url_form import two_url_form
 from webView import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -36,6 +35,10 @@ class Body(QWidget):
         if update_url:
             self.urls = URLs(update_url = True)
         else:
+            crawler_res = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clx\\clx\\crawl_result.csv')
+            if not os.path.isfile(crawler_res):
+                Path(crawler_res).touch()
+
             self.urls = URLs()
         self.app.k = len(self.urls.list)
         

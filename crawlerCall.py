@@ -14,6 +14,8 @@ def call(outfile = 'crawl_result.csv', url = 'https://quotes.toscrape.com/page/1
     rm_file = os.path.join(dirname, 'clx/clx/crawl_result.csv') # f'{dirname}/clx/clx/crawl_result.csv'
     if os.path.isfile(rm_file):
         os.remove(rm_file)
+    Path(rm_file).touch()
+    
     rm_file = os.path.join(dirname, 'NumericRecords.txt')#f'{dirname}/NumericRecords.txt'
     if os.path.isfile(rm_file):
         os.remove(rm_file)
@@ -22,7 +24,7 @@ def call(outfile = 'crawl_result.csv', url = 'https://quotes.toscrape.com/page/1
         print(f'{rm_file} is a empty file now')
     else:
         print(f'fail to create {rm_file}')
-    os.chdir(os.path.join(dirname, 'clx/clx/')
+    os.chdir(os.path.join(dirname, 'clx/clx/'))
     
     # print os.getcwd()
     
