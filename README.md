@@ -45,4 +45,4 @@ TODO
 ## Acknowledgments
 
 * This is a research project GUI with Scrapy, only single thread supported
-* Inspirated by my advisor [Dr. Anxiao Jiang](http://faculty.cse.tamu.edu/ajiang/)
+* Supervised by my advisor [Dr. Anxiao Jiang](http://faculty.cse.tamu.edu/ajiang/)
