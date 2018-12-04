@@ -17,7 +17,7 @@ class URLs:
          '''
 
         self.data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'urlDictionary.data')
-        self.crawl_result = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clx\\clx\\crawl_result.csv')
+        self.crawl_result = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clx/clx/crawl_result.csv')
         self.set_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'url_set.pickle')
         self.id = 0
         if not os.path.isfile(self.data_file) or os.path.getsize(self.data_file) == 0:
