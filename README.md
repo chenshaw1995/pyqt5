@@ -16,6 +16,14 @@ python3
 pyqt5
 ```
 
+on mac
+
+there is no anaconda prompt on mac, so to install scrapy and pyqt5
+:
+pip install Scrapy
+brew install pyqt5
+
+
 ### Installing
 
 1. clone or download this repository locally
