@@ -59,6 +59,7 @@ class graph:
         ins = [0 for x in range(len(self.parents))]
         visited = [False for x in range(len(self.parents))]
         res = []
+        notCompared = []
         for ids in self.parents:
             if ids == self.parents[ids]:
                 # source
@@ -68,8 +69,19 @@ class graph:
             
         for ids in range(len(ins)):
             if ins[ids] == 0:
+                if ids == self.parents[ids]:
+                    notCompared.append(ids)
+                    continue
                 self.dfs(self.parents, ids, visited, res)
-        
+        res.extend(notCompared)
+
+        import csv
+        with open('sortResult.csv', 'w+') as f:
+            f_writer = csv.writer(f, delimiter = ',', quotechar = '"', quoting = csv.QUOTE_MINIMAL)
+            f_writer.writerow(['rank', 'id'])
+            for rank in range(len(res)):
+                f_writer.writerow([rank, res[rank]])
+
         return res
 
     def dfs(self, parents, ids, visited, res):

@@ -15,14 +15,14 @@ anaconda3
 python3
 pyqt5
 ```
-
+NOTE :
 on mac
 
-there is no anaconda prompt on mac, so to install scrapy and pyqt5
-:
-pip install Scrapy
-brew install pyqt5
-
+there is no anaconda prompt on mac, so to install scrapy and pyqt5:
+```
+- pip install Scrapy
+-  brew install pyqt5
+```
 
 ### Installing
 
