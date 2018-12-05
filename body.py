@@ -35,7 +35,7 @@ class Body(QWidget):
         if update_url:
             self.urls = URLs(update_url = True)
         else:
-            crawler_res = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clx\\clx\\crawl_result.csv')
+            crawler_res = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clx/clx/crawl_result.csv')
             if not os.path.isfile(crawler_res):
                 Path(crawler_res).touch()
 
