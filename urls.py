@@ -66,7 +66,10 @@ class URLs:
     def crawl_result_2_urllists(self):
         import csv
         urls = []
-        
+        if not os.path.isfile(self.crawl_result):
+            print(f'currenly no {self.crawl_result} exists')
+            self.list = urls
+            return 
         with open(self.crawl_result) as f:
             csv_reader = csv.reader(f, delimiter=',')
             line_count = 0
